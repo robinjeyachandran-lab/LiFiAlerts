@@ -11,7 +11,7 @@ import java.util.regex.*;
 
 public class MonitorService extends Service {
     static final String URL = "https://iot-projects.eweb.org.in/FX/lifi/";
-    static final int INTERVAL_MS = 30000;
+    static final int INTERVAL_MS = 3000;
     static final double TEMP_LIMIT = 40, RAIN_LIMIT = 80, WATER_LIMIT = 80;
     static volatile String last = "Waiting for data...";
 
