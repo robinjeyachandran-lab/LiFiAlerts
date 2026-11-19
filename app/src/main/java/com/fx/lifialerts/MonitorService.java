@@ -12,7 +12,7 @@ import java.util.regex.*;
 public class MonitorService extends Service {
     static final String URL = "https://iot-projects.eweb.org.in/FX/lifi/";
     static final int INTERVAL_MS = 3000;
-    static final double TEMP_LIMIT = 40, RAIN_LIMIT = 80, WATER_LIMIT = 80;
+    static final double TEMP_LIMIT = 40, RAIN_LIMIT = 80, WATER_LIMIT = 70;
     static volatile String last = "Waiting for data...";
 
     Handler h = new Handler(Looper.getMainLooper());
@@ -88,7 +88,7 @@ public class MonitorService extends Service {
                 "Warning. High rainfall. Rain level is " + rain + " percent.");
         aRain = hr;
         boolean hw = water != null && water > WATER_LIMIT;
-        if (hw && !aWater) alert(12, "🌊 High Water Level", "Water level is " + water + " % (above 80)",
+        if (hw && !aWater) alert(12, "🌊 High Water Level", "Water level is " + water + " % (above 70)",
                 "Warning. High water level. Water level is " + water + " percent.");
         aWater = hw;
         boolean eq = quake != null && !quake.equals("NORMAL") && !quake.equals("NO");
