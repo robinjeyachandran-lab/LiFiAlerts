@@ -11,7 +11,7 @@ public class MainActivity extends Activity {
     WebView web;
     Handler h = new Handler(Looper.getMainLooper());
     Runnable refresh = new Runnable() {
-        public void run() { if (web != null) web.reload(); h.postDelayed(this, 30000); }
+        public void run() { if (web != null) web.reload(); h.postDelayed(this, 10000); }
     };
 
     @Override protected void onCreate(Bundle b) {
@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
         startForegroundService(new Intent(this, MonitorService.class));
     }
 
-    @Override protected void onResume() { super.onResume(); h.postDelayed(refresh, 30000); }
+    @Override protected void onResume() { super.onResume(); h.postDelayed(refresh, 10000); }
     @Override protected void onPause() { super.onPause(); h.removeCallbacks(refresh); }
 
     @Override public void onBackPressed() {
