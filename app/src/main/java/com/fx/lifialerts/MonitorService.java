@@ -8,7 +8,7 @@ import java.util.regex.*;
 
 public class MonitorService extends Service {
     static final String URL = "https://iot-projects.eweb.org.in/FX/lifi/";
-    static final int INTERVAL_MS = 30000;           // check every 30 seconds
+    static final int INTERVAL_MS = 3000;           // check every 30 seconds
     static final double TEMP_LIMIT = 40, RAIN_LIMIT = 80, SOIL_LIMIT = 80;
     static volatile String last = "Waiting for data...";
 
@@ -58,7 +58,7 @@ public class MonitorService extends Service {
         Matcher q = Pattern.compile("(?i)EARTHQUAKE\\s+([A-Za-z]+)").matcher(t);
         String quake = q.find() ? q.group(1).toUpperCase() : null;
         if (temp == null && rain == null && soil == null && quake == null) { last = "Could not read data from the website"; return; }
-        last = "Temperature: " + temp + " °C\nRain: " + rain + " %\nSoil moisture / Water: " + soil + " %\nEarthquake: " + quake
+        last = "Temperature: " + temp + " °C\nRain: " + rain + " %\nWater level / Water: " + soil + " %\nEarthquake: " + quake
                 + "\nUpdated: " + new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
 
         boolean ht = temp != null && temp > TEMP_LIMIT;
@@ -68,7 +68,7 @@ public class MonitorService extends Service {
         if (hr && !aRain) alert(11, "🌧️ High Rainfall", "Rain level is " + rain + " % (above 80)");
         aRain = hr;
         boolean hs = soil != null && soil > SOIL_LIMIT;
-        if (hs && !aSoil) alert(12, "💧 High Soil Moisture", "Level is " + soil + " % (above 80)");
+        if (hs && !aSoil) alert(12, "💧 High Water level", "Water Level is " + soil + " % (above 80)");
         aSoil = hs;
         boolean eq = quake != null && !quake.equals("NORMAL") && !quake.equals("NO");
         if (eq && !aQuake) alert(13, "🌍 Earthquake Alert", "Earthquake status: " + quake);
